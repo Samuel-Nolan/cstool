@@ -1,0 +1,19 @@
+.venv/
+site/
+.obsidian/
+.env
+.env.*
+*.log
+
+# 仅提交 Zensical 配置、工作流、首页和两个内容目录
+*
+!/.gitignore
+!/zensical.toml
+!/index.md
+!/01-环境配置/
+!/01-环境配置/**
+!/02-工具/
+!/02-工具/**
+!/.github/
+!/.github/workflows/
+!/.github/workflows/docs.yml

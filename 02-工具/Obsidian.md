@@ -1,0 +1,7 @@
+- 从 VS Code 复制代码到 Obsidian 的代码块中出现多余空行
+- **根本原因**：VS Code 复制的内容虽然是代码，但可能带有**富文本格式（RTF/HTML）**。Obsidian 默认粘贴会尝试解析这些格式，有时会错误地将 `\n` 转为 `\r\n\r\n`。
+- **终极解决方案**：
+    - 在 Obsidian 中粘贴时，**务必使用“粘贴为纯文本”**：
+        - **Windows/Linux**: `Ctrl + Shift + V`
+        - **macOS**: `Cmd + Shift + V`
+    - 这能 100% 避免格式干扰。
