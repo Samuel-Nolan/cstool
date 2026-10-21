@@ -7,8 +7,11 @@ site/
 
 # 仅提交 Zensical 配置、工作流、首页和两个内容目录
 *
+# 本地 Codex 指令与记忆，不纳入 Git
+/AGENTS.md
 !/.gitignore
 !/zensical.toml
+!/README.md
 !/docs/
 !/docs/index.md
 !/docs/01-环境配置/
