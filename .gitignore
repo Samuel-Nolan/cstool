@@ -9,11 +9,12 @@ site/
 *
 !/.gitignore
 !/zensical.toml
-!/index.md
-!/01-环境配置/
-!/01-环境配置/**
-!/02-工具/
-!/02-工具/**
+!/docs/
+!/docs/index.md
+!/docs/01-环境配置/
+!/docs/01-环境配置/**
+!/docs/02-工具/
+!/docs/02-工具/**
 !/.github/
 !/.github/workflows/
 !/.github/workflows/docs.yml

@@ -2,13 +2,14 @@
 site_url = "https://samuel-nolan.github.io/cstool/"
 site_name = "CSTool"
 site_description = "开发环境、AI 工具与个人工作流配置笔记"
-docs_dir = "."
+docs_dir = "docs"
+repo_url = "https://github.com/Samuel-Nolan/cstool"
+repo_name = "Samuel-Nolan/cstool"
+copyright = "Copyright &copy; 2026 Samuel-Nolan"
 # site_author = "Your name"
 
 # copyright = "Copyright &copy; 2026 Your name"
 
-# repo_url = "https://github.com/user/repo"
-# repo_name = "user/repo"
 # edit_uri = "edit/main/docs/"
 
 # extra_css = ["stylesheets/extra.css"]
@@ -50,8 +51,8 @@ features = [
 
 # logo = "assets/logo.png"
 
-# [project.theme.icon]
-# logo = "lucide/smile"
+[project.theme.icon]
+repo = "fontawesome/brands/github"
 
 # [project.theme.font]
 # text = "Inter"

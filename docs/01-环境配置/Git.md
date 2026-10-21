@@ -1,5 +1,6 @@
-需要 add to path ，不要git-bash only
-否则手动配置环境变量
+# Git 环境配置
+
+需要将 Git 加入 PATH，不要选择 Git Bash only；否则需要手动配置环境变量。
 ```
 D:\Git\bin            
 D:\Git\cmd

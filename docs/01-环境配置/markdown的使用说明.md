@@ -1,4 +1,6 @@
 
+# Markdown 语法说明
+
 ## 一、标题
 
 ctrl + 数字可以快速调成对应的级别
@@ -118,7 +120,7 @@ ctrl + 数字可以快速调成对应的级别
 >
 >
 
-## 七、Latex数学公式
+## 七、LaTeX 数学公式
 
 [CSDN—Latex数学公式详细教程](https://blog.csdn.net/NSJim/article/details/109045914?ops_request_misc=%257B%2522request%255Fid%2522%253A%25223303A8DE-AC33-42E4-907B-91B85AF7363A%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=3303A8DE-AC33-42E4-907B-91B85AF7363A&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-109045914-null-null.142^v100^pc_search_result_base5&utm_term=latex%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F&spm=1018.2226.3001.4187)         Ctrl + 单击进入
 

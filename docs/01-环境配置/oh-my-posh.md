@@ -3,7 +3,9 @@
 
 
 
-## 一、windows
+# oh-my-posh 配置
+
+## 一、Windows
 
 `$PROFILE`，一个自动变量，存储powershell的配置文件的位置
 ### 1.安装

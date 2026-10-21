@@ -1,4 +1,6 @@
->通常用conda的虚拟环境或者WSL
+# Jupyter Notebook 配置
+
+> 通常使用 Conda 虚拟环境或者 WSL。
 
 
 - **“jlab”** 通常是指 **JupyterLab**，它是 Jupyter Notebook 的下一代交互式开发环境

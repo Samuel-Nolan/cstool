@@ -1,9 +1,11 @@
-### 1. pip
+# Python 包管理工具
 
-### 2. conda
+## 1. pip
+
+## 2. Conda
 参见 [Conda 环境配置](conda.md)。
 
-### 3. uv
+## 3. uv
 |维度|uv|conda|
 |:--|:--|:--|
 |开发语言|Rust（极致性能）|Python / C++|
