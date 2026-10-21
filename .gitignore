@@ -18,6 +18,8 @@ site/
 !/docs/01-环境配置/**
 !/docs/02-工具/
 !/docs/02-工具/**
+!/overrides/
+!/overrides/**
 !/.github/
 !/.github/workflows/
 !/.github/workflows/docs.yml

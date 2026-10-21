@@ -1,5 +1,4 @@
 ---
-title: ""
 icon: lucide/book-open
 ---
 

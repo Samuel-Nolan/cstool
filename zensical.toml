@@ -17,7 +17,7 @@ copyright = "Copyright &copy; 2026 Samuel-Nolan"
 
 [project.theme]
 # variant = "classic"
-# custom_dir = "overrides"
+custom_dir = "overrides"
 # favicon = "images/favicon.png"
 language = "zh"
 features = [
