@@ -26,7 +26,9 @@ D:\Git\cmd
 
 
 ### 2. 配置文件
+
 <img src="picture/claude%20code.png" width="525">
+
 在`"C:\Users\<你的用户名>\.claude.json"`配置文件中添加
 ```json
 "hasCompletedOnboarding":true
@@ -56,4 +58,5 @@ D:\Git\cmd
 
 
 ## 或者使用订阅
+
 <img src="../02-工具/picture/cc.png" width="750">

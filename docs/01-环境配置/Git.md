@@ -6,4 +6,5 @@ D:\Git\bin
 D:\Git\cmd
 ```
 <img src="picture/git1.png" width="500">
+
 <img src="picture/git2.png" width="500">

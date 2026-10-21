@@ -46,7 +46,9 @@ wsl --install -d Ubuntu-24.04
 ```powershell
 wsl -l -v
 ```
+
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b74d3f992c914d5fab9face37b1ffc54.png)
+
 ## 四、移动到 D 盘
 默认情况下，WSL 的虚拟硬盘（ext4.vhdx）存在 C 盘，可能占用大量空间。
 
@@ -67,8 +69,8 @@ wsl --import <新的Linux名称> <导入盘的路径> <导入tar包路径> 版�
 wsl -l -v
 ```
 
-
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e3c16c5699a046c7914432862630ff81.png)
+
 新文件夹`D:\wsl\ubuntu`中有一个`ext4.vhdx`。代表移动成功了
 
 4. 删除旧版本
@@ -90,7 +92,9 @@ WSL只支持单一图形化界面
 [官方文档——GUI界面](https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gui-apps)
 打开可以使用Linux终端命令
 也可以直接在开始菜单的全部中找到相关快捷方式
+
 ![在这里插入图片描述|475](https://i-blog.csdnimg.cn/direct/7c89e57b668f4f85b83dd2847aae4064.png)
+
 每次打开太过麻烦，建议右键打开文件所在位置，复制这些快捷方式到，桌面的一个文件夹里。或者将这些快捷方式固定到开始菜单
 
 

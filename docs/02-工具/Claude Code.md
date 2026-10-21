@@ -48,8 +48,8 @@
 ```
 
 /memory的分层，这个slash command一般没啥用，在资源管理器中新建，然后用Typora打开
-<img src="picture/memory.png" width="425">
 
+<img src="picture/memory.png" width="425">
 
 <img src="picture/Pasted%20image%2020260614202347.png" width="750">
 

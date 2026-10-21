@@ -9,9 +9,11 @@
 
 **注：Docker需要的操作系统(OS)或架构(x86,Arm)是不一样的**
 ### 1. Docker vs 虚拟机
+
 <img src="picture/docker.png" width="550">
 
 <img src="picture/Docker%20vs%20虚拟机.png" width="575">
+
 - 虚拟机：有独立的虚拟操作系统，只能使用被分配的硬件资源
 - Docker：使用Docker Engine，所有的Container共享宿主机的操作系统（Linux）和硬件资源，只独立Namespace，包括process,network,mount
 	- Docker有自己的文件系统，例如`/bin`里面的工具不通用

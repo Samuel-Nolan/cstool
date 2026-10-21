@@ -11,6 +11,7 @@
 下载`latest`版本
 
 <img src="picture/miniconda.png" width="475">
+
 **全选**
 
 ### 加入环境变量
