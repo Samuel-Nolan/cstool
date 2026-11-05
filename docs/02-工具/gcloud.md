@@ -37,7 +37,7 @@ gcloud init
 gcloud auth login
 ```
 
-浏览器会弹出 Google 账号授权页面，登录 `nolan042411@gmail.com` 并完成授权。
+浏览器会弹出 Google 账号授权页面，使用你的 Google 账号登录并完成授权。
 
 ### 2. 创建项目并设为默认项目
 
@@ -45,10 +45,10 @@ Google Cloud 要求 `PROJECT_ID` 全局唯一（不可与全球任何已有项�
 
 ```powershell
 # 创建新项目（指定全局唯一的 PROJECT_ID 与显示名称）
-gcloud projects create ai-research-nolan-2026-1103 --name="airsearch-nolan"
+gcloud projects create my-google-cloud-project --name="My Google Cloud Project"
 
 # 将该项目设为全局默认项目
-gcloud config set project ai-research-nolan-2026-1103
+gcloud config set project my-google-cloud-project
 
 # 查看当前配置与项目列表
 gcloud config list
@@ -64,16 +64,16 @@ gcloud projects list
 gcloud billing accounts list
 
 # 2. 将项目绑定到结算账户（替换为实际的 ACCOUNT_ID）
-gcloud billing projects link ai-research-nolan-2026-1103 --billing-account=015F80-E0E312-AA75DA
+gcloud billing projects link my-google-cloud-project --billing-account=YOUR_BILLING_ACCOUNT_ID
 
 # 3. 验证项目结算绑定状态（确认 billingEnabled: true）
-gcloud billing projects describe ai-research-nolan-2026-1103
+gcloud billing projects describe my-google-cloud-project
 ```
 
 ### 4. 启用 Vertex AI API
 
 ```powershell
-gcloud services enable aiplatform.googleapis.com --project=ai-research-nolan-2026-1103
+gcloud services enable aiplatform.googleapis.com --project=my-google-cloud-project
 ```
 
 ### 5. 配置本地应用默认凭据（ADC）
@@ -85,13 +85,13 @@ gcloud services enable aiplatform.googleapis.com --project=ai-research-nolan-202
 gcloud auth application-default login
 
 # 2. 为 ADC 绑定配额项目（Quota Project）
-gcloud auth application-default set-quota-project ai-research-nolan-2026-1103
+gcloud auth application-default set-quota-project my-google-cloud-project
 
 # 3. 测试能否正常获取 Access Token
 gcloud auth application-default print-access-token
 ```
 
-成功后，凭据文件保存在：`C:\Users\NZY\AppData\Roaming\gcloud\application_default_credentials.json`。
+成功后，凭据文件保存在当前 Windows 用户的 Google Cloud 配置目录中。
 
 ---
 
@@ -141,11 +141,11 @@ gcloud auth application-default print-access-token
   - 紧接着执行 `gcloud projects describe ai-research-2026` 报错：
 
     ```text
-    ERROR: (gcloud.projects.describe) [nolan042411@gmail.com] does not have permission to access projects instance [ai-research-2026] (or it may not exist): The caller does not have permission
+    ERROR: (gcloud.projects.describe) [ACCOUNT_EMAIL] does not have permission to access projects instance [ai-research-2026] (or it may not exist): The caller does not have permission
     ```
 
 - **原因**：Google Cloud 的 `PROJECT_ID` 是**全球唯一**的（非账号内唯一）。`ai-research-2026` 已被全球其他用户抢先注册，因此既无法创建同名 ID，也无权查看别人的项目详情。
-- **解决办法**：在 `PROJECT_ID` 中加入个人标识和日期后缀（如 `ai-research-nolan-2026-1103`），即可创建成功。
+- **解决办法**：为 `PROJECT_ID` 设置一个全局唯一的名称，例如 `my-google-cloud-project-2026`。
 
 ---
 
@@ -161,7 +161,7 @@ gcloud auth application-default print-access-token
 - **解决办法**：创建好新项目后，显式执行一次全局默认项目绑定：
 
   ```powershell
-  gcloud config set project ai-research-nolan-2026-1103
+  gcloud config set project my-google-cloud-project
   ```
 
 ---
@@ -183,28 +183,28 @@ gcloud auth application-default print-access-token
 
 ### 问题 6：CLI 创建的项目在 Google Cloud Console 网页端看不到
 
-- **现象**：`gcloud projects list` 能看到 `ai-research-nolan-2026-1103` 和 `project-f5f83754-d018-446c-a14`（`My First Project`），但打开网页控制台只看得到 `My First Project`。
+- **现象**：`gcloud projects list` 能看到新建项目和 `My First Project`，但打开网页控制台只看得到 `My First Project`。
 - **原因**：
-  1. 账号下存在组织资源 `nolan042411-org`（Organization ID：`172809462338`），网页端初始项目 `My First Project` 归属在该组织下。
+  1. 账号下可能存在组织资源，网页端初始项目 `My First Project` 归属在该组织下。
   2. 使用 `gcloud projects create` 创建项目时未传 `--organization` 参数，新项目默认归属于**无组织（No organization）**。
-  3. 网页端项目选择器默认按 `nolan042411-org` 组织过滤（或停留在 `Recent` 最近列表），将无组织项目隐藏了。
+  3. 网页端项目选择器默认按某个组织过滤（或停留在 `Recent` 最近列表），将无组织项目隐藏了。
 - **解决办法**：
   - **临时查看**：在网页端左上角项目选择器的下拉框中切换为 **无组织 (No organization)** -> **全部 (All)**。
   - **彻底解决（将项目迁入组织下）**：
 
     ```powershell
-    # 1. 查看组织 ID（获取 ID: 172809462338）
+    # 1. 查看组织 ID
     gcloud organizations list
 
     # 2. 为当前账号补充项目 IAM 管理员权限
-    gcloud projects add-iam-policy-binding ai-research-nolan-2026-1103 --member="user:nolan042411@gmail.com" --role="roles/resourcemanager.projectIamAdmin"
+    gcloud projects add-iam-policy-binding my-google-cloud-project --member="user:ACCOUNT_EMAIL" --role="roles/resourcemanager.projectIamAdmin"
 
     # 3. 安装 beta 组件并将项目移动到组织下
     gcloud components install beta
-    gcloud beta projects move ai-research-nolan-2026-1103 --organization=172809462338
+    gcloud beta projects move my-google-cloud-project --organization=ORGANIZATION_ID
 
-    # 4. 验证项目的 parent 已变为 organization (172809462338)
-    gcloud projects describe ai-research-nolan-2026-1103
+    # 4. 验证项目的 parent 已变为指定组织
+    gcloud projects describe my-google-cloud-project
     ```
 
 ---
