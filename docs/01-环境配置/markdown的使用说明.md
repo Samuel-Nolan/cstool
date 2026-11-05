@@ -147,7 +147,6 @@ $\log_{2}{n}$
 \phantom{text}  % 占据 text 的宽度但不显示
 ```
 
+## 八、书写排版
 
-
-
-
+[排版参考](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md)

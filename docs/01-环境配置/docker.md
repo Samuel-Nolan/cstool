@@ -167,3 +167,11 @@ docker compose up -d
 docker images         # 显示下载的镜像
 docker rmi IMAGE      # 必须先删除对应的container
 ```
+
+`docker compose pull`
+
+- 不会自动删除旧镜像，会积累在磁盘内
+
+`docker image prune -a`
+
+- 定期清理未被使用的镜像
