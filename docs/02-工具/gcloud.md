@@ -1,4 +1,4 @@
-# Google Cloud SDK (gcloud)
+# gcloud
 
 ## 一、安装 Google Cloud SDK
 

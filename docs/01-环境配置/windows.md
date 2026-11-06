@@ -1,3 +1,5 @@
+# windows
+
 ## Junction
 
 |对比|Junction|快捷方式（`.lnk`）|

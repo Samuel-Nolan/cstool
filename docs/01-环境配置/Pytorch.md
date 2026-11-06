@@ -1,4 +1,4 @@
-# PyTorch 安装
+# Pytorch
 
 ## 安装 PyTorch
 

@@ -1,4 +1,4 @@
-# Git 环境配置
+# Git
 
 需要将 Git 加入 PATH，不要选择 Git Bash only；否则需要手动配置环境变量。
 ```

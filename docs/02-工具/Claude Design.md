@@ -1,1 +1,1 @@
-# 开源版本 Open Design
+# Claude Design

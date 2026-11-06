@@ -1,4 +1,4 @@
-# Claude Code 配置
+# claude code
 
 由anthropic开发的一个AI-powered coding assistant（AI编程助手），一端是经典的对话式交互界面，一端是可以自己通过API调用的大模型。通过这个接口，就可以在非网页（命令行 or vscode 窗口）实现与大模型的对话。
 

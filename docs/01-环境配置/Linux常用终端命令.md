@@ -1,4 +1,4 @@
-# Linux 常用终端命令
+# Linux常用终端命令
 
 ## 基本命令
 1. `mkdir` 新建文件夹 make directory

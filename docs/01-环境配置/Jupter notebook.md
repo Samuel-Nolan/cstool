@@ -1,4 +1,4 @@
-# Jupyter Notebook 配置
+# Jupter notebook
 
 > 通常使用 Conda 虚拟环境或者 WSL。
 

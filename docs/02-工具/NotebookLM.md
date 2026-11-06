@@ -1,4 +1,6 @@
 
+# NotebookLM
+
 ## 1. 核心理念：Everything Notebook 
 
 很多人习惯按主题建笔记本（比如“学英语”、“学编程”），但谷歌官方博客（Steve Johnson）提出了一个更高级的理念：**创建一个主笔记本 (Everything Notebook)**。

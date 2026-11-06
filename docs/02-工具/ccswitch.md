@@ -1,3 +1,5 @@
+# ccswitch
+
 ## 安装
 [官网](https://ccswitch.io/zh/)
 

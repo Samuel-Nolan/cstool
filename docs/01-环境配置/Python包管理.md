@@ -1,4 +1,4 @@
-# Python 包管理工具
+# Python包管理
 
 ## 1. pip
 

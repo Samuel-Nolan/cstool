@@ -1,4 +1,4 @@
-# Docker 安装与使用
+# docker
 
 ## 一、Docker 介绍
 
@@ -86,7 +86,8 @@ Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 ```
 - 添加 Docker 官方 APT 源
-- 这样用apt安装Docker直接走官方仓库
+
+- 这样用 apt 安装 Docker 直接走官方仓库
 
 ```bash
 sudo apt update    # 然后刷新软件源

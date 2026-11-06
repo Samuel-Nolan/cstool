@@ -24,6 +24,9 @@ def preprocess_content(content: str) -> str:
         if in_code_block:
             new_lines.append(line)
             continue
+
+        # 将 Obsidian 使用的无序列表标记转换为网站使用的 Markdown 写法
+        line = re.sub(r"^(\s*(?:>\s*)*)-\s+", r"\1* ", line)
             
         # 匹配 Obsidian Callout 语法：> [!type]+/- 标题
         callout_match = re.match(r"^>\s*\[!(\w+)\]([+-])?(?:\s*(.*))?$", line.strip())

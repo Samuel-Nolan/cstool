@@ -3,7 +3,7 @@
 >[安装完成后的设置推荐这篇](https://blog.csdn.net/x777777x/article/details/141092913?spm=1001.2014.3001.5506)
 >[Windows官方文档-WSL](https://learn.microsoft.com/zh-cn/windows/wsl/)
 
-# WSL 安装与配置
+# WSL
 
 ## 一、什么是 WSL
 > 适用于 Linux 的 Windows 子系统（WSL）允许开发人员直接在 Windows 上运行 GNU/Linux 环境（包括大多数命令行工具、实用工具和应用程序），无需传统虚拟机或双启动设置的开销。

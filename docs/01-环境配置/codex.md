@@ -1,4 +1,4 @@
-# Codex 配置
+# codex
 
 ## 客户端五次重连问题
 1. 在 `~/.codex/.env`文件，如果没有就在命令行创建一个`New-Item -Path .env -ItemType File`

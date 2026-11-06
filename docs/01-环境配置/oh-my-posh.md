@@ -1,9 +1,6 @@
 
 [安装文档](https://ohmyposh.dev/docs/installation/prompt)
-
-
-
-# oh-my-posh 配置
+# oh-my-posh
 
 ## 一、Windows
 

@@ -4,7 +4,7 @@
 > - 可以创建不同的虚拟环境
 > - pip只能管理py包
 
-# Conda 环境配置
+# conda
 
 ## 安装
 [Index of /anaconda/miniconda/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror](https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/?C=M&O=D)
