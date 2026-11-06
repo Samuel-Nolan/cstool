@@ -10,24 +10,26 @@ def preprocess_content(content: str) -> str:
     in_code_block = False
     in_callout = False
     
-    for line in lines:
+    for index, line in enumerate(lines):
         stripped = line.strip()
         
         # 忽略代码块内部的内容，防止破坏示例代码
         if stripped.startswith("```") or stripped.startswith("~~~"):
+            was_in_code_block = in_code_block
             in_code_block = not in_code_block
             if in_callout:
                 in_callout = False
             new_lines.append(line)
+            
+            # 代码块结束后紧接无序列表时补充空行，避免列表被解析为代码内容
+            if was_in_code_block and index + 1 < len(lines) and re.match(r"^\s*-\s+", lines[index + 1]):
+                new_lines.append("")
             continue
             
         if in_code_block:
             new_lines.append(line)
             continue
 
-        # 将 Obsidian 使用的无序列表标记转换为网站使用的 Markdown 写法
-        line = re.sub(r"^(\s*(?:>\s*)*)-\s+", r"\1* ", line)
-            
         # 匹配 Obsidian Callout 语法：> [!type]+/- 标题
         callout_match = re.match(r"^>\s*\[!(\w+)\]([+-])?(?:\s*(.*))?$", line.strip())
         if callout_match:
