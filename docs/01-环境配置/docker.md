@@ -66,12 +66,14 @@ sudo apt install -y ca-certificates curl   # 安装ca和curl两个包，新系�
 ```bash
 sudo install -m 0755 -d /etc/apt/keyrings
 ```
+
 - 创建 Docker 的 keyring 目录，并设置权限
 
 ```bash
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc        # 注意linux的版本
 sudo chmod a+r /etc/apt/keyrings/docker.asc  #设置读取权限
 ```
+
 - 从 Docker 官网下载 GPG 公钥，并保存到 Debian 的 keyrings 目录
 - GPG：GNU Privacy Guard，用于数字签名验证，确保这是Docker发布的没有被篡改
 
@@ -85,8 +87,8 @@ Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 ```
-- 添加 Docker 官方 APT 源
 
+- 添加 Docker 官方 APT 源
 - 这样用 apt 安装 Docker 直接走官方仓库
 
 ```bash
