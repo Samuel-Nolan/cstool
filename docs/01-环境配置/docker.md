@@ -39,28 +39,37 @@ image
 
 ```bash
 docker compose up -d
-docker down
+docker compose down
 ```
 
-## 二、从官方安装 Docker 软件
+## 二、安装 Docker 软件
 
 [docs-Docker Engine-install](https://docs.docker.com/engine/install/)
 [官方下载源](https://download.docker.com/linux/debian/)
-### 1.安装依赖
+
+
+### 1. 手动安装（备用方案）
+
+#### 1. 安装依赖
 ```bash
 sudo apt update
 sudo apt install -y ca-certificates curl   # 安装ca和curl两个包，新系统可能没有
 ```
 
-### 2. 添加Docker官方源
+#### 2. 添加Docker官方源
+> [!note]
+> 注意每个代码中的 linux 发行版，这里是Debian
+> 并且是服务器，没有被网络墙
+> 国内使用清华源替代
+> 或添加代理[[#4. Docker Hub 因为网络不可达]]
+
 ```bash
 sudo install -m 0755 -d /etc/apt/keyrings
 ```
 - 创建 Docker 的 keyring 目录，并设置权限
 
 ```bash
-sudo curl -fsSL https://download.docker.com/linux/debian/gpg \
-  -o /etc/apt/keyrings/docker.asc
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc        # 注意linux的版本
 sudo chmod a+r /etc/apt/keyrings/docker.asc  #设置读取权限
 ```
 - 从 Docker 官网下载 GPG 公钥，并保存到 Debian 的 keyrings 目录
@@ -79,15 +88,18 @@ EOF
 - 添加 Docker 官方 APT 源
 - 这样用apt安装Docker直接走官方仓库
 
-
 ```bash
 sudo apt update    # 然后刷新软件源
 # download.docker.com/linux/debian trixie
 ```
 
 
+```bash
+sudo usermod -aG docker $USER
+```
+- 把用户加入 docker 组，免 sudo 使用 Docker
 
-### 3. 安装 Docker 组件
+#### 3. 安装 Docker 组件
 ```bash
 sudo apt install -y \
   docker-ce \
@@ -105,7 +117,41 @@ sudo docker version           # 检查Docker版本
 sudo docker compose version
 ```
 
+#### 4. Docker Hub 因为网络不可达
 
+```bash
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo tee /etc/systemd/system/docker.service.d/proxy.conf > /dev/null <<'EOF'
+[Service]
+Environment="HTTP_PROXY=http://172.29.208.1:7897"    # 非 wsl 使用 127.0.0.1 这个 IP
+Environment="HTTPS_PROXY=http://172.29.208.1:7897"
+Environment="NO_PROXY=localhost,172.29.208.1:7897"
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+1. wsl 的 IP 使用`ip route show default | awk '{print $3}'`，找到自己的 IP 地址
+2. 在 Proxy 软件中“允许局域网连接”，也可以找到，注意把这个功能打开
+3. 端口号，就是正常代理端口
+
+```bash
+# 国内清华源
+
+sudo install -m 0755 -d /etc/apt/keyrings
+
+sudo curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg    # 国内清华源
+sudo chmod a+r /etc/apt/keyrings/docker.asc  #设置读取权限
+
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian
+Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+```
 ## 三、下载image并启动container
 
 ```bash
