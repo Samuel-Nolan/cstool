@@ -60,3 +60,33 @@
    
    - `jupyter notebook`：进入网页
 
+
+## 修改虚拟环境路径
+
+### 查看虚拟环境路径
+
+```bash
+conda config --show envs_dirs
+
+  - E:\miniconda3\envs
+  - C:\Users\NAME\.conda\envs
+  - C:\Users\NAME\AppData\Local\conda\conda\envs
+```
+
+
+### 情况1：无权限
+> 有虚拟环境路径，但是还是创建到 C 盘，大概率是没有 envs 文件夹的读写权限
+
+1. 测试读写权限
+```bash
+Set-Content D:\miniconda3\envs\write_test.txt "test"
+```
+2. 以管理员运行 powershell
+```bash
+icacls "D:\miniconda3\envs" /grant "$($env:USERNAME):(OI)(CI)M" /T
+```
+3. 普通 powershell 
+```bash
+Set-Content D:\miniconda3\envs\write_test.txt "test"
+Remove-Item D:\miniconda3\envs\write_test.txt
+```
