@@ -17,8 +17,8 @@
 
 ### 3.配置文件
 
-1. `notepad $PROFILE`：用记事本打开
-2. `New-Item -Path $PROFILE -Type File -Force`：如果没有则需要创建
+1. `New-Item -Path $PROFILE -Type File -Force`：如果没有则需要创建
+2. `notepad $PROFILE`：用记事本打开
 
 ### 4.下载主题
 
@@ -37,7 +37,7 @@
 
 1. `notepad $PROFILE`
 2. `oh-my-posh init pwsh --config "$HOME\.poshthemes\paradox.omp.json" | Invoke-Expression`：写入记事本
-`
+
 
 ## 二、Linux
 
