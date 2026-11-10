@@ -21,8 +21,8 @@ def preprocess_content(content: str) -> str:
                 in_callout = False
             new_lines.append(line)
             
-            # 代码块结束后紧接无序列表时补充空行，避免列表被解析为代码内容
-            if was_in_code_block and index + 1 < len(lines) and re.match(r"^\s*-\s+", lines[index + 1]):
+            # 代码块结束后紧接无序/有序列表时补充空行，避免列表被解析为代码内容
+            if was_in_code_block and index + 1 < len(lines) and re.match(r"^\s*([-*+]|\d+\.)\s+", lines[index + 1]):
                 new_lines.append("")
             continue
             
@@ -67,13 +67,20 @@ def preprocess_content(content: str) -> str:
                 
         # 处理图片嵌入语法：![[path/img.png|500]] 或 ![[path/img.png]]
         def repl_img(m):
-            img_path = m.group(1).strip()
-            width = m.group(2)
-            if width:
-                return f'<img src="{img_path}" width="{width}">'
+            img_path = m.group(1).strip().replace(" ", "%20")
+            extra = m.group(2).strip() if m.group(2) else ""
+            if extra:
+                dim_match = re.match(r"^(\d+)(?:x(\d+))?$", extra)
+                if dim_match:
+                    width = dim_match.group(1)
+                    height = dim_match.group(2)
+                    if height:
+                        return f'<img src="{img_path}" width="{width}" height="{height}">'
+                    return f'<img src="{img_path}" width="{width}">'
+                return f'<img src="{img_path}" alt="{extra}">'
             return f'<img src="{img_path}">'
             
-        line = re.sub(r"!\[\[([^|\]\n]+)(?:\|(\d+))?\]\]", repl_img, line)
+        line = re.sub(r"!\[\[([^|\]\n]+)(?:\|([^\]\n]+))?\]\]", repl_img, line)
         
         # 处理双链语法：[[target#anchor|label]] 或 [[target]]
         def repl_link(m):
@@ -95,6 +102,10 @@ def preprocess_content(content: str) -> str:
         line = re.sub(r"(?<!!)\[\[([^|\]\n]+)(?:\|([^\]\n]+))?\]\]", repl_link, line)
         
         new_lines.append(line)
+        # 表格结束后紧接列表时补充空行，避免列表被解析为普通段落 (paragraph)
+        if stripped.startswith("|") and stripped.endswith("|") and index + 1 < len(lines):
+            if re.match(r"^\s*([-*+]|\d+\.)\s+", lines[index + 1]):
+                new_lines.append("")
         
     return "\n".join(new_lines) + ("\n" if content.endswith("\n") else "")
 

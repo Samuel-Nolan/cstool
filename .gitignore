@@ -20,6 +20,7 @@ site/
 !/docs/02-工具/**
 !/scripts/
 !/scripts/**
+scripts/__pycache__/
 !/overrides/
 !/overrides/**
 !/.github/
