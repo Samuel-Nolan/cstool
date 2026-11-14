@@ -3,27 +3,48 @@ import re
 
 DOCS_DIR = "docs"
 
+def is_bullet_item(line: str) -> bool:
+    stripped = line.strip()
+    # 排除 Markdown 水平分割线，如 ---, - - -, ----
+    if re.match(r"^(-\s*){3,}$", stripped):
+        return False
+    return bool(re.match(r"^\s*-\s+", line))
+
+def is_ordered_item(line: str) -> bool:
+    return bool(re.match(r"^\s*\d+\.\s+", line))
+
 def preprocess_content(content: str) -> str:
     lines = content.splitlines()
     new_lines = []
     
     in_code_block = False
     in_callout = False
+    in_bullet_list = False
+    in_frontmatter = False
     
     for index, line in enumerate(lines):
         stripped = line.strip()
         
+        # 识别 YAML Frontmatter
+        if index == 0 and stripped == "---":
+            in_frontmatter = True
+            new_lines.append(line)
+            continue
+            
+        if in_frontmatter:
+            new_lines.append(line)
+            if stripped == "---":
+                in_frontmatter = False
+            continue
+
         # 忽略代码块内部的内容，防止破坏示例代码
         if stripped.startswith("```") or stripped.startswith("~~~"):
             was_in_code_block = in_code_block
             in_code_block = not in_code_block
             if in_callout:
                 in_callout = False
+            in_bullet_list = False
             new_lines.append(line)
-            
-            # 代码块结束后紧接无序/有序列表时补充空行，避免列表被解析为代码内容
-            if was_in_code_block and index + 1 < len(lines) and re.match(r"^\s*([-*+]|\d+\.)\s+", lines[index + 1]):
-                new_lines.append("")
             continue
             
         if in_code_block:
@@ -34,6 +55,7 @@ def preprocess_content(content: str) -> str:
         callout_match = re.match(r"^>\s*\[!(\w+)\]([+-])?(?:\s*(.*))?$", line.strip())
         if callout_match:
             in_callout = True
+            in_bullet_list = False
             c_type = callout_match.group(1).lower()
             c_fold = callout_match.group(2)
             c_title = callout_match.group(3).strip() if callout_match.group(3) else ""
@@ -55,15 +77,16 @@ def preprocess_content(content: str) -> str:
         if in_callout:
             if line.startswith(">"):
                 # 去除前导引用符，替换为 4 空格缩进
-                sub_content = re.sub(r"^>\s?", "    ", line)
-                new_lines.append(sub_content)
-                continue
+                line = re.sub(r"^>\s?", "    ", line)
+                stripped = line.strip()
             elif stripped == "":
+                in_bullet_list = False
                 new_lines.append("")
                 continue
             else:
                 # 遇到非空且不以 > 开头的行，Callout 结束
                 in_callout = False
+                in_bullet_list = False
                 
         # 处理图片嵌入语法：![[path/img.png|500]] 或 ![[path/img.png]]
         def repl_img(m):
@@ -101,11 +124,26 @@ def preprocess_content(content: str) -> str:
             
         line = re.sub(r"(?<!!)\[\[([^|\]\n]+)(?:\|([^\]\n]+))?\]\]", repl_link, line)
         
+        # 列表状态管理与首个无序列表前置空行处理
+        if is_bullet_item(line):
+            if not in_bullet_list:
+                # 识别到首个无序列表 - 时，若前一行非空行则插入空行
+                if new_lines and new_lines[-1].strip() != "":
+                    # 避免在 Callout 声明行后直接插入空行
+                    if not new_lines[-1].strip().startswith(("!!!", "???")):
+                        new_lines.append("")
+                in_bullet_list = True
+        elif is_ordered_item(line):
+            # 有序列表项：设为列表态，避免其下方嵌套的无序列表被误判为独立新列表
+            in_bullet_list = True
+        elif stripped == "":
+            in_bullet_list = False
+        else:
+            # 非空非列表行：若为缩进行且当前处于列表态，保留为列表项的多行延续；否则退出列表态
+            if not (in_bullet_list and (line.startswith(" ") or line.startswith("\t"))):
+                in_bullet_list = False
+
         new_lines.append(line)
-        # 表格结束后紧接列表时补充空行，避免列表被解析为普通段落 (paragraph)
-        if stripped.startswith("|") and stripped.endswith("|") and index + 1 < len(lines):
-            if re.match(r"^\s*([-*+]|\d+\.)\s+", lines[index + 1]):
-                new_lines.append("")
         
     return "\n".join(new_lines) + ("\n" if content.endswith("\n") else "")
 
